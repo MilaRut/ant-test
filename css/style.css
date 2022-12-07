@@ -569,8 +569,6 @@ button,
   -ms-flex-direction: column;
   flex-direction: column;
   min-height: 100vh;
-  /* stylelint-disable-next-line */
-  min-height: calc(100 * var(--vh, 1vh));
 }
 
 .wrapper .header,
@@ -650,8 +648,10 @@ button,
 }
 
 .header {
-  background-color: rgba(255, 255, 255, 0);
-  min-height: 100px;
+  background: #1c5691 url("../img/intro.jpg") center no-repeat;
+  background-size: 100%;
+  -webkit-filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25));
+  filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25));
   z-index: 10;
 }
 
@@ -716,17 +716,8 @@ button,
   color: #f9fbfd;
 }
 
-.intro {
-  background: #1c5691 url("../img/intro.jpg") center no-repeat;
-  -webkit-filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25));
-  filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25));
-  background-size: 100%;
-  min-width: 100%;
-  margin-top: -100px;
-}
-
 .intro .container {
-  padding-top: 271px;
+  padding-top: 191px;
   padding-bottom: 278px;
 }
 
@@ -876,6 +867,18 @@ button,
   padding-top: 85px;
 }
 
+.catalog h2 {
+  margin: 0;
+  text-align: center;
+  margin-bottom: 49px;
+  font-family: "Montserrat", "Arial", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 1.5;
+  color: #011c40;
+}
+
 .catalog__list {
   margin: 0;
   margin-bottom: 120px;
@@ -883,8 +886,8 @@ button,
   list-style: none;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (1fr)[4];
-  grid-template-columns: repeat(4, 1fr);
+  -ms-grid-columns: (minmax(100px, 1fr))[4];
+  grid-template-columns: repeat(4, minmax(100px, 1fr));
   gap: 30px;
 }
 
@@ -898,8 +901,9 @@ button,
   flex-direction: column;
   position: relative;
   background-color: #011c40;
-  padding: 29px 25px 22px;
-  min-height: 386px;
+  height: 28.25vw;
+  max-height: 386px;
+  padding: 11% 10% 8.7%;
   overflow: hidden;
 }
 
@@ -918,18 +922,7 @@ button,
 
 .catalog__item:hover::before {
   background: none;
-}
-
-.catalog h2 {
-  margin: 0;
-  text-align: center;
-  margin-bottom: 49px;
-  font-family: "Montserrat", "Arial", sans-serif;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 28px;
-  line-height: 1.5;
-  color: #011c40;
+  z-index: -1;
 }
 
 .catalog h3 {
@@ -945,6 +938,11 @@ button,
   font-size: 18px;
   line-height: 1.5;
   color: #f9fbfd;
+}
+
+.catalog__content {
+  overflow: auto;
+  margin-bottom: auto;
 }
 
 .catalog p {
@@ -967,10 +965,6 @@ button,
   font-size: 14px;
   line-height: 1.43;
   color: #d8d8d9;
-}
-
-.catalog span:last-of-type {
-  margin-bottom: auto;
 }
 
 .catalog__btn {
@@ -1036,14 +1030,16 @@ button,
   object-position: 40.8%;
 }
 
-.catalog__item:hover .catalog__image {
+.catalog__item:hover .catalog__image,
+.catalog__btn:focus ~ picture > .catalog__image {
   z-index: -1;
 }
 
-.catalog__item:hover h3 {
-  -webkit-box-ordinal-group: 1;
-  -ms-flex-order: 0;
-  order: 0;
+.catalog__item:hover h3,
+.catalog__btn:focus-within ~ h3 {
+  -webkit-box-ordinal-group: 0;
+  -ms-flex-order: -1;
+  order: -1;
   margin-bottom: 12px;
   padding: 0;
 }
@@ -1052,16 +1048,21 @@ button,
   z-index: 2;
 }
 
+.catalog__btn:focus {
+  z-index: 2;
+}
+
 .booking {
-  background: #bbdefb url("../img/booking.jpg") center no-repeat;
-  background-size: 100%;
-  background-position-y: 5%;
+  padding: 50px 0;
+  background-color: #bbdefb;
+  background-image: url("../img/booking.jpg");
+  background-position: 0 0;
+  background-size: cover;
+  background-repeat: no-repeat;
   min-width: 100%;
 }
 
 .booking .container {
-  padding-top: 50px;
-  padding-bottom: 50px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1108,6 +1109,8 @@ button,
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
 }
 
 .booking__form h3 {
@@ -1255,6 +1258,7 @@ input[type=checkbox]:hover + label {
 .contacts__address p,
 .contacts__address a {
   position: relative;
+  display: block;
   margin: 0;
   margin-bottom: 21px;
   padding-left: 28px;
@@ -1274,6 +1278,10 @@ input[type=checkbox]:hover + label {
   width: 18px;
 }
 
+.contacts__address a {
+  max-width: 200px;
+}
+
 .contacts__address p::before {
   content: url("../img/svg/contacts-address.svg");
   height: 22px;
@@ -1282,6 +1290,7 @@ input[type=checkbox]:hover + label {
 .contacts__address a::before {
   content: url("../img/svg/contacts-phone.svg");
   height: 18px;
+  top: 2px;
 }
 
 .footer {
@@ -1294,6 +1303,7 @@ input[type=checkbox]:hover + label {
   display: -ms-flexbox;
   display: flex;
   padding-top: 50px;
+  padding-bottom: 25px;
 }
 
 .footer__logo {
@@ -1310,6 +1320,7 @@ input[type=checkbox]:hover + label {
   display: -ms-flexbox;
   display: flex;
   padding-top: 8px;
+  max-width: 67%;
 }
 
 .footer__nav .nav__list {
@@ -1322,9 +1333,7 @@ input[type=checkbox]:hover + label {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  padding-top: 8px;
 }
 
 .footer__socials-list {
@@ -1390,10 +1399,6 @@ input[type=checkbox]:hover + label {
     padding: 0 80px;
   }
 
-  .catalog__item {
-    padding: 10px 12px;
-  }
-
   .catalog__btn {
     margin-bottom: 0;
   }
@@ -1405,7 +1410,10 @@ input[type=checkbox]:hover + label {
   }
 
   .header {
-    min-height: 60px;
+    -webkit-filter: none;
+    filter: none;
+    background-size: cover;
+    background-position: 50.6% 97%;
   }
 
   .header .container {
@@ -1430,16 +1438,8 @@ input[type=checkbox]:hover + label {
     margin-right: 24px;
   }
 
-  .intro {
-    -webkit-filter: none;
-    filter: none;
-    margin-top: -93px;
-    background-size: 110.7%;
-    background-position: 50.6% 97%;
-  }
-
   .intro .container {
-    padding-top: 301px;
+    padding-top: 211px;
     padding-bottom: 274px;
   }
 
@@ -1532,6 +1532,10 @@ input[type=checkbox]:hover + label {
     padding-top: 90px;
   }
 
+  .catalog h2 {
+    font-size: 26px;
+  }
+
   .catalog__list {
     -ms-grid-columns: (1fr)[2];
     grid-template-columns: repeat(2, 1fr);
@@ -1539,15 +1543,14 @@ input[type=checkbox]:hover + label {
   }
 
   .catalog__item {
+    width: 40.2vw;
+    height: 50.26vw;
+    max-height: 50.26vw;
     padding: 29px 30px 27px;
   }
 
   .catalog__item:hover {
     padding: 29px 35px 23px;
-  }
-
-  .catalog h2 {
-    font-size: 26px;
   }
 
   .catalog__btn {
@@ -1600,8 +1603,8 @@ input[type=checkbox]:hover + label {
   }
 
   .booking {
-    background-size: 192.4%;
-    background-position: 70.6% 6%;
+    padding: 88px 0 100px;
+    background-position-x: 88%;
   }
 
   .booking .container {
@@ -1609,8 +1612,6 @@ input[type=checkbox]:hover + label {
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
-    padding-top: 88px;
-    padding-bottom: 100px;
   }
 
   .booking__headings {
@@ -1692,6 +1693,10 @@ input[type=checkbox]:hover + label {
     padding-bottom: 5px;
   }
 
+  .footer__socials {
+    padding-top: 1px;
+  }
+
   .footer__socials-item:not(:last-child) {
     margin-right: 22px;
   }
@@ -1709,6 +1714,12 @@ input[type=checkbox]:hover + label {
 @media (max-width: 767px) {
   .container {
     padding: 0 15px;
+  }
+
+  .header {
+    background-size: 240%;
+    background-position-x: 45.6%;
+    background-position-y: 6.7%;
   }
 
   .header__logo {
@@ -1755,6 +1766,18 @@ input[type=checkbox]:hover + label {
   .header__nav .nav__link {
     font-size: 18px;
     color: #011c40;
+  }
+
+  .header__overlay--open {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    width: 100%;
+    background-color: rgba(0, 43, 102, 0.5);
+    overflow: auto;
   }
 
   .header__nav--open .header__button::before,
@@ -1900,15 +1923,8 @@ input[type=checkbox]:hover + label {
     fill: #011c40;
   }
 
-  .intro {
-    margin-top: -60px;
-    background-size: 240%;
-    background-position-x: 45.6%;
-    background-position-y: 6.7%;
-  }
-
   .intro .container {
-    padding-top: 176px;
+    padding-top: 127px;
     padding-bottom: 178px;
   }
 
@@ -1997,6 +2013,11 @@ input[type=checkbox]:hover + label {
     padding-top: 57px;
   }
 
+  .catalog h2 {
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
+
   .catalog__list {
     -ms-grid-columns: 1fr;
     grid-template-columns: 1fr;
@@ -2005,16 +2026,14 @@ input[type=checkbox]:hover + label {
   }
 
   .catalog__item {
+    width: 100%;
+    height: 120.63vw;
+    max-height: 120.63vw;
     padding: 29px 20px 17px;
   }
 
   .catalog__item:hover {
     padding: 29px 25px 23px;
-  }
-
-  .catalog h2 {
-    font-size: 24px;
-    margin-bottom: 30px;
   }
 
   .catalog__image--ast {
@@ -2050,13 +2069,8 @@ input[type=checkbox]:hover + label {
   }
 
   .booking {
-    background-size: 406.4%;
-    background-position: 53.4% 56%;
-  }
-
-  .booking .container {
-    padding-top: 59px;
-    padding-bottom: 65px;
+    padding: 59px 0 65px;
+    background-position-x: 58%;
   }
 
   .booking h2 {
@@ -2097,7 +2111,7 @@ input[type=checkbox]:hover + label {
 
   .contacts .container {
     padding-top: 58px;
-    padding-bottom: 56px;
+    padding-bottom: 64px;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
@@ -2106,6 +2120,7 @@ input[type=checkbox]:hover + label {
 
   .contacts__map-wrapper {
     min-width: 100%;
+    height: 317px;
     background: #f1efea url("../img/map-mob.jpg") center no-repeat;
     background-size: cover;
     -webkit-box-ordinal-group: 2;
@@ -2115,7 +2130,7 @@ input[type=checkbox]:hover + label {
 
   .contacts__address-wrapper {
     padding: 0;
-    margin-bottom: 26px;
+    margin-bottom: 16px;
   }
 
   .contacts h3 {
@@ -2194,7 +2209,7 @@ input[type=checkbox]:hover + label {
 }
 
 @media (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3/2), (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
-  .intro {
+  .header {
     background-image: url("../img/intro@2x.jpg");
   }
 
